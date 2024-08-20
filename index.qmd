@@ -1,0 +1,88 @@
+---
+title: "Assignment 1"
+author: Christopher Swann
+format: html
+editor: visual
+---
+
+# **Introduction**
+
+Numerous guides have been written on the exploration of this widely known dataset. Iris, introduced by Ronald Fisher in his 1936 paper *The use of multiple measurements in taxonomic problems*, contains three plant species (setosa, virginica, versicolor) and four features measured for each sample. These quantify the morphologic variation of the iris flower in its three species, all measurements given in centimeters.
+
+Any comments within our code have to be preceded by the pound sign to notify the compiler to ignore them. `# comments appear like this in code`
+
+```{r}
+library(datasets)
+data(iris)
+summary(iris)
+
+```
+
+```{r}
+library(datasets)
+data(iris)
+summary(iris$Sepal.Length)
+
+```
+
+```{r}
+names(iris) <- tolower(names(iris))
+library(dplyr)
+```
+
+```{r}
+virginica <- filter(iris, species == "virginica")
+head(virginica)
+```
+
+```{r}
+sepalLength6 <- filter(iris, species == "virginica", sepal.length > 6)
+tail(sepalLength6)
+
+```
+
+```{r}
+selected <- select(iris, sepal.length, sepal.width, petal.length)
+selected2 <- select(iris, sepal.length:petal.length)
+head(selected, 3)
+
+
+```
+
+```{r}
+identical(selected, selected2)
+```
+
+```{r}
+newCol <- mutate(iris, greater.half = sepal.width > 0.5 * sepal.length)
+tail(newCol)
+
+```
+
+```{r}
+newCol <- arrange(newCol, petal.width)
+head(newCol)
+```
+
+```{r}
+arr.virg <- newCol %>% filter(species == "virginica") %>%
+  arrange(sepal.width)
+arr.virg[30:35,] 
+
+```
+
+```{r}
+summarise(arr.virg, mean.length = mean(sepal.length, na.rm = TRUE))
+```
+
+```{r}
+plot(iris)
+```
+
+```{r}
+plot(iris$sepal.width, iris$sepal.length)
+```
+
+```{r}
+hist(iris$sepal.width)
+```
